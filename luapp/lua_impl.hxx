@@ -1204,7 +1204,7 @@ namespace lua {
 			const int tableNum = TableUtils::makeNew(s, 0, sizeof...(KVPairs) / 2);
 			try {
 				values.pushBySingle(s);
-				for(int i = s.getTop(); i > tableNum; i -= 2)
+				for(int i = static_cast<int>(s.getTop()); i > tableNum; i -= 2)
 					TableUtils::setValue(s, tableNum);
 			} catch(std::exception&) {
 				s.pop();
@@ -1323,7 +1323,7 @@ namespace lua {
 			return obj.context;
 		}
 
-		template<typename Policy> inline Context& extractContext(const Lazy<Policy>& obj) noexcept
+		template<typename Policy> Context& extractContext(const Lazy<Policy>& obj) noexcept
 		{
 			return obj.S;
 		}
